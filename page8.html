@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <!-- Site made with Mobirise Website Builder v4.8.2, https://mobirise.com -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Mobirise v4.8.2, mobirise.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <link rel="shortcut icon" href="assets/images/logo4.png" type="image/x-icon">
+  <meta name="description" content="Website Creator Description">
+  <title>VBA Kalender</title>
+  <link rel="stylesheet" href="assets/web/assets/mobirise-icons/mobirise-icons.css">
+  <link rel="stylesheet" href="assets/tether/tether.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
+  <link rel="stylesheet" href="assets/theme/css/style.css">
+  <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+  
+  
+  
+</head>
+<body>
+  <section class="header1 cid-r4yTHxB1ZS mbr-parallax-background" id="header1-m">
+
+    
+
+    
+
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="mbr-white col-md-10">
+                <h1 class="mbr-section-title align-center mbr-bold pb-3 mbr-fonts-style display-1">VBA Code<br></h1>
+                <h3 class="mbr-section-subtitle align-center mbr-light pb-3 mbr-fonts-style display-2">VBA Kalender</h3>
+                <p class="mbr-text align-center pb-3 mbr-fonts-style display-5">Private Sub cmd_Liefertermin_Click()
+<br>frmCalendar.Show
+<br>txt_Liefertermin = g_datCalendarDate
+<br>End Sub</p>
+                <div class="mbr-section-btn align-center"><a class="btn btn-md btn-primary display-4" href="http://index.html"><span class="mbri-github mbr-iconfont mbr-iconfont-btn"></span></a></div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section class="engine"><a href="https://mobiri.se/t">free amp template</a></section><section class="mbr-section article content1 cid-r4yTHys41U" id="content1-n">
+    
+     
+
+    <div class="container">
+        <div class="media-container-row">
+            <div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7"><strong>
+</strong><div><strong>Option Explicit
+</strong></div><div><strong>
+</strong></div><div><strong>Private Sub Frame1_Click()
+</strong></div><div><strong>
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>
+</strong></div><div><strong>'=============================================================================================================================
+</strong></div><div><strong>' Index
+</strong></div><div><strong>'--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+</strong></div><div><strong>' 1.  UserForm_Initialize    -   Initialisierung UserForm
+</strong></div><div><strong>' 2.  pFillCmbMonth          -   Dropdown mit Monatsnamen füllen
+</strong></div><div><strong>' 3.  cmbMonth_Change        -   Refresh bei Monatswechsel
+</strong></div><div><strong>' 4.  cmbMonth_Exit          -   Refresh bei Monatswechsel
+</strong></div><div><strong>' 5.  udMonth_Change         -   Gleichschaltung Monat mit UpDown-Schalter (Buddy)      REMARKED IN VERS. 1.1 / 05.10.11
+</strong></div><div><strong>' 6.  txtYear_Change         -   Refresh bei Jahreswechsel
+</strong></div><div><strong>' 7.  setDataLabels          -   Tage in Raster verteilen
+</strong></div><div><strong>' 8.  pClearDataLabels       -   Raster zurücksetzen
+</strong></div><div><strong>' 9.  pReturnDate            -   Rückgabewert in globale Variable schreiben
+</strong></div><div><strong>' 10. pSetNewMonth           -   Raster mit neuem Monat befüllen bei Klick auf "graue" Datumsfelder
+</strong></div><div><strong>' 11 - 15.                   -   Schaltflächen Monat und Jahr + und -
+</strong></div><div><strong>' 16 - 56.                   -   Click-Events auf Labels (Kein Errorhandling)
+</strong></div><div><strong>'======================================================================================================================
+</strong></div><div><strong>
+</strong></div><div><strong>'=============================================================================================================================
+</strong></div><div><strong>'Prozeduren
+</strong></div><div><strong>'=============================================================================================================================
+</strong></div><div><strong>' 1. UserForm_Initialize
+</strong></div><div><strong>'--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+</strong></div><div><strong>Private Sub UserForm_Initialize()
+</strong></div><div><strong>On Error GoTo err_initialize
+</strong></div><div><strong>&nbsp; &nbsp; g_bolInitialize = True              ' Während Initialisierung werden automatisch Refreshs (Change- und Exit-Events) unterbunden
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; txtYear.Text = Year(Date)       ' Initialwert Jahr
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; Call pFillCmbMonth              ' Aufruf Befüllung Dropdown "Monatsnamen"
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; fSetMonthText (Month(Date))     ' Übersetzung der Inhalte des Dropdowns Monatsnamen
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; Call setDataLabels(fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>&nbsp; &nbsp; g_bolInitialize = False
+</strong></div><div><strong>Exit Sub
+</strong></div><div><strong>
+</strong></div><div><strong>' Errorhandling
+</strong></div><div><strong>err_initialize:
+</strong></div><div><strong>&nbsp; &nbsp; MsgBox "Error " &amp; Err.Number &amp; " (" &amp; Err.Description _
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &amp; ") in der Prozedur 'UserForm_Initialize' in 'frmCalendar'. Ausführung wird abgebrochen.", vbCritical, "Laufzeitfehler"
+</strong></div><div><strong>&nbsp; &nbsp; End
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>
+</strong></div><div><strong>Private Sub UserForm_Activate()
+</strong></div><div><strong>
+</strong></div><div><strong>With Me
+</strong></div><div><strong>&nbsp; .StartUpPosition = 0
+</strong></div><div><strong>&nbsp; .Left = Application.Left + Application.Width / 2 - .Width / 2
+</strong></div><div><strong>&nbsp; .Top = Application.Top + Application.Height / 2 - .Height / 2
+</strong></div><div><strong>End With
+</strong></div><div><strong>
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>
+</strong></div><div><strong>
+</strong></div><div><strong>'=============================================================================================================================
+</strong></div><div><strong>' 2. pFillCmbMonth  -  Dropdown mit Monatsnamen füllen
+</strong></div><div><strong>'--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+</strong></div><div><strong>Private Sub pFillCmbMonth()
+</strong></div><div><strong>On Error GoTo err_pFillCmbMonth
+</strong></div><div><strong>&nbsp; &nbsp; cmbMonth.AddItem "Januar"
+</strong></div><div><strong>&nbsp; &nbsp; cmbMonth.AddItem "Februar"
+</strong></div><div><strong>&nbsp; &nbsp; cmbMonth.AddItem "März"
+</strong></div><div><strong>&nbsp; &nbsp; cmbMonth.AddItem "April"
+</strong></div><div><strong>&nbsp; &nbsp; cmbMonth.AddItem "Mai"
+</strong></div><div><strong>&nbsp; &nbsp; cmbMonth.AddItem "Juni"
+</strong></div><div><strong>&nbsp; &nbsp; cmbMonth.AddItem "Juli"
+</strong></div><div><strong>&nbsp; &nbsp; cmbMonth.AddItem "August"
+</strong></div><div><strong>&nbsp; &nbsp; cmbMonth.AddItem "September"
+</strong></div><div><strong>&nbsp; &nbsp; cmbMonth.AddItem "Oktober"
+</strong></div><div><strong>&nbsp; &nbsp; cmbMonth.AddItem "November"
+</strong></div><div><strong>&nbsp; &nbsp; cmbMonth.AddItem "Dezember"
+</strong></div><div><strong>Exit Sub
+</strong></div><div><strong>
+</strong></div><div><strong>' Errorhandling
+</strong></div><div><strong>err_pFillCmbMonth:
+</strong></div><div><strong>&nbsp; &nbsp; MsgBox "Error " &amp; Err.Number &amp; " (" &amp; Err.Description _
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &amp; ") in der Prozedur 'err_pFillCmbMonth' in 'frmCalendar'. Dropdown konnte nicht befüllt werden. Ausführung wird abgebrochen.", vbCritical, "Laufzeitfehler"
+</strong></div><div><strong>&nbsp; &nbsp; End
+</strong></div><div><strong>&nbsp; &nbsp; 
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>
+</strong></div><div><strong>'=============================================================================================================================
+</strong></div><div><strong>' 3. cmbMonth_Change    -  Refresh bei Monatswechsel
+</strong></div><div><strong>'--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+</strong></div><div><strong>' Anmerkungen:      Bei Monatswechsel Refresh anstossen (ausser bei Initialisierung und beim Wechsel durch Klick auf "grauen" Datumsfeldern
+</strong></div><div><strong>'--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+</strong></div><div><strong>Private Sub cmbMonth_Change()
+</strong></div><div><strong>On Error GoTo err_cmbMonthChange
+</strong></div><div><strong>&nbsp; &nbsp; If g_bolInitialize = False And g_bolMonthChange = False Then
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; If fPlaus(cmbMonth.Text, 1) = True Then                     ' Wenn Monatsname korrekt eingegeben wurde und...
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; If lblk2d1.Caption &lt;&gt; "" Then                           ' das Labelraster Einträge enthält...
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Call pClearDataLabels                               ' Aufruf Prozedur um alle Einträge zu entfernen
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; End If
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Call setDataLabels(cmbMonth.Text, txtYear.Text, fChangeStrToInt(cmbMonth.Text))     ' Falls Raster nicht beschrieben, Aufruf für die Befüllung des Monatsrasters
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; End If
+</strong></div><div><strong>&nbsp; &nbsp; End If
+</strong></div><div><strong>Exit Sub
+</strong></div><div><strong>
+</strong></div><div><strong>' Errorhandling
+</strong></div><div><strong>err_cmbMonthChange:
+</strong></div><div><strong>&nbsp; &nbsp; MsgBox "Error " &amp; Err.Number &amp; " (" &amp; Err.Description _
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &amp; ") in der Prozedur 'cmbMonth_Change' in 'frmCalendar'. Ausführung wird abgebrochen.", vbCritical, "Laufzeitfehler"
+</strong></div><div><strong>&nbsp; &nbsp; End
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>'=============================================================================================================================
+</strong></div><div><strong>' 4. cmbMonth_Exit      -  Refresh bei Monatswechsel
+</strong></div><div><strong>'--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+</strong></div><div><strong>' Anmerkungen:      Bei Verlassen des Monatsfeldes Refresh anstossen (ausser bei Initialisierung und beim Wechsel durch Klick auf "grauen" Datumsfeldern
+</strong></div><div><strong>'--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+</strong></div><div><strong>Private Sub cmbMonth_Exit(ByVal Cancel As MSForms.ReturnBoolean)
+</strong></div><div><strong>On Error GoTo err_cmbMonthExit
+</strong></div><div><strong>&nbsp; &nbsp; If g_bolInitialize = False And g_bolMonthChange = False Then
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; Call pClearDataLabels
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; If IsNumeric(cmbMonth.Text) = True Then
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Call setDataLabels(cmbMonth.Text, txtYear.Text)
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; Else
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Call setDataLabels(cmbMonth.Text, txtYear.Text, fChangeStrToInt(cmbMonth.Text))
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; End If
+</strong></div><div><strong>&nbsp; &nbsp; End If
+</strong></div><div><strong>Exit Sub
+</strong></div><div><strong>
+</strong></div><div><strong>' Errorhandling
+</strong></div><div><strong>err_cmbMonthExit:
+</strong></div><div><strong>&nbsp; &nbsp; MsgBox "Error " &amp; Err.Number &amp; " (" &amp; Err.Description _
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &amp; ") in der Prozedur 'cmbMonth_Exit' in 'frmCalendar'. Ausführung wird abgebrochen.", vbCritical, "Laufzeitfehler"
+</strong></div><div><strong>&nbsp; &nbsp; End
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>
+</strong></div><div><strong>'REMARKED IN VERSION 1.1 / 05.10.11
+</strong></div><div><strong>'=============================================================================================================================
+</strong></div><div><strong>' 5. udMonth_Change -   Gleichschaltung Monat mit UpDown-Schalter (Buddy)
+</strong></div><div><strong>'--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+</strong></div><div><strong>' Anmerkungen:      Bei Änderung des Monats via UpDown-Schaltfläche Refresh anstossen
+</strong></div><div><strong>'--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+</strong></div><div><strong>'Private Sub udMonth_Change()
+</strong></div><div><strong>'On Error GoTo err_udMonthChange
+</strong></div><div><strong>'    If lblk2d1.Caption &lt;&gt; "" Then
+</strong></div><div><strong>'        Call pClearDataLabels
+</strong></div><div><strong>'    End If
+</strong></div><div><strong>'    fSetMonthText (cmbMonth.Value)
+</strong></div><div><strong>'    If g_bolMonthChange = False Then Call setDataLabels(cmbMonth.Value, txtYear.Text, fChangeStrToInt(cmbMonth.Value))
+</strong></div><div><strong>'Exit Sub
+</strong></div><div><strong>'
+</strong></div><div><strong>'' Errorhandling
+</strong></div><div><strong>'err_udMonthChange:
+</strong></div><div><strong>'    MsgBox "Error " &amp; Err.Number &amp; " (" &amp; Err.Description _
+</strong></div><div><strong>'        &amp; ") in der Prozedur 'udMonth_Change' in 'frmCalendar'. Monatswechsel konnte nicht verarbeitet werden. Ausführung wird abgebrochen.", vbCritical, "Laufzeitfehler"
+</strong></div><div><strong>'    End
+</strong></div><div><strong>'End Sub
+</strong></div><div><strong>
+</strong></div><div><strong>'=============================================================================================================================
+</strong></div><div><strong>' 6. txtYear_Change  -   Refresh bei Jahreswechsel
+</strong></div><div><strong>'--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+</strong></div><div><strong>' Anmerkungen:      Bei Änderung des Jahres Refresh anstossen (ausser bei Initialisierung und beim Wechsel durch Klick auf "grauen" Datumsfeldern
+</strong></div><div><strong>'--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+</strong></div><div><strong>Private Sub txtYear_Change()
+</strong></div><div><strong>On Error GoTo err_txtYearChange
+</strong></div><div><strong>&nbsp; &nbsp; If g_bolInitialize = False And g_bolMonthChange = False Then
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; If lblk2d1.Caption &lt;&gt; "" Then
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Call pClearDataLabels
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; End If
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; If g_bolMonthChange = False Then
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; If Len(txtYear.Text) = 4 And IsNumeric(txtYear.Text) = True And txtYear.Text &gt; "1900" Then
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Call setDataLabels(cmbMonth.Value, txtYear.Text, fChangeStrToInt(cmbMonth.Text))
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; End If
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; End If
+</strong></div><div><strong>&nbsp; &nbsp; End If
+</strong></div><div><strong>Exit Sub
+</strong></div><div><strong>
+</strong></div><div><strong>' Errorhandling
+</strong></div><div><strong>err_txtYearChange:
+</strong></div><div><strong>&nbsp; &nbsp; MsgBox "Error " &amp; Err.Number &amp; " (" &amp; Err.Description _
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &amp; ") in der Prozedur 'txtYear_Change' in 'frmCalendar'. Jahreswechsel konnte nicht verarbeitet werden. Ausführung wird abgebrochen.", vbCritical, "Laufzeitfehler"
+</strong></div><div><strong>&nbsp; &nbsp; End
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>
+</strong></div><div><strong>'======================================================================================================================
+</strong></div><div><strong>' 7. setDataLabels - Tage in Raster verteilen
+</strong></div><div><strong>'======================================================================================================================
+</strong></div><div><strong>Private Sub setDataLabels(dMonth, dYear, Optional varMonth As Variant = "")
+</strong></div><div><strong>' Deklarationen
+</strong></div><div><strong>Dim strLabel            As String       'Name des jeweiligen Label-Steuerelements
+</strong></div><div><strong>Dim intCounter          As Integer      'Laufnummer für Tageszahl (1 - 28/29/30/31)
+</strong></div><div><strong>Dim intWeekCounter      As Integer      'Zähler für die angezeigten Wochen (6)
+</strong></div><div><strong>Dim intDayCounter       As Integer      'Zähler für die aktuelle Tagesnummer innerhalb der Wochen (1 - 7 | 1 = Montag)
+</strong></div><div><strong>Dim datLastDayMonth     As Date         'Letzter Tag im Monat als Datum
+</strong></div><div><strong>Dim intLastDayMonth     As Integer      'Letzter Tag im Monat als Ganzzahl
+</strong></div><div><strong>Dim datFirstDayOfMonth  As Date         'Erster Tag im Monat als Datum
+</strong></div><div><strong>Dim intStartKW          As Date         'Erste Kalenderwoche des angezeigten Zeitraums
+</strong></div><div><strong>Dim datActiveDate       As Date         'Aktuell bearbeitetes Datum
+</strong></div><div><strong>Dim bolPostActiveMonth  As Boolean      'Schalter, welcher auf True gesetzt wird, wenn die angezeigten Daten bereits zu nächsten Monat gehören
+</strong></div><div><strong>Dim strKW               As String       'Name des Labels für die Kalenderwoche
+</strong></div><div><strong>' Zähler und Variablen für Vormonat
+</strong></div><div><strong>Dim intVormonat         As Integer      'Zähler für die Vearbeitung jener angezeigten Daten, welche zum Vormonat gehören
+</strong></div><div><strong>Dim intVormonatTag      As Integer      'Zähler für die Vearbeitung jener angezeigten Daten, welche zum Vormonat gehören
+</strong></div><div><strong>
+</strong></div><div><strong>' Initialisierung
+</strong></div><div><strong>bolPostActiveMonth = False
+</strong></div><div><strong>If varMonth &lt;&gt; "" Then dMonth = varMonth    ' Falls bei Aufruf der Prozedur mittels der optionalen Variable "varMonth" ein Monat (Zahl) übergeben wurde, diese verwenden
+</strong></div><div><strong>intCounter = 1
+</strong></div><div><strong>intDayCounter = Weekday("01." &amp; dMonth &amp; "." &amp; dYear, vbMonday)
+</strong></div><div><strong>intStartKW = "01." &amp; dMonth &amp; "." &amp; dYear
+</strong></div><div><strong>intWeekCounter = 1
+</strong></div><div><strong>datLastDayMonth = fLastDayInMonth("01." &amp; dMonth &amp; "." &amp; dYear)
+</strong></div><div><strong>intLastDayMonth = Mid(datLastDayMonth, 1, 2)
+</strong></div><div><strong>intVormonat = 0
+</strong></div><div><strong>
+</strong></div><div><strong>' Verarbeitung Vormonat
+</strong></div><div><strong>For intVormonatTag = intDayCounter - 1 To 1 Step -1
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; strLabel = "lblk1d" &amp; intVormonatTag
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; If dMonth &lt;&gt; 1 Then
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Me.Controls(strLabel).Caption = Mid(fLastDayInMonth("01." &amp; dMonth - 1 &amp; "." &amp; dYear), 1, 2) - intVormonat
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; Else
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Me.Controls(strLabel).Caption = Mid(fLastDayInMonth("01." &amp; dMonth + 11 &amp; "." &amp; dYear - 1), 1, 2) - intVormonat
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; End If
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; Me.Controls(strLabel).ForeColor = &amp;H808080
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; intVormonat = intVormonat + 1
+</strong></div><div><strong>Next intVormonatTag
+</strong></div><div><strong>
+</strong></div><div><strong>
+</strong></div><div><strong>' Verarbeitung aktiver Monat
+</strong></div><div><strong>For intWeekCounter = 1 To 6                                         ' Übergeordnete Schlaufe für jede angezeigte Woche
+</strong></div><div><strong>&nbsp; &nbsp; For intDayCounter = intDayCounter To 7                          ' Schlaufe für jeden Tag innerhalb einer Woche
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; strLabel = "lblk" &amp; intWeekCounter &amp; "d" &amp; intDayCounter    ' Identifizierung Label
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; Me.Controls(strLabel).Caption = intCounter                  ' Beschriftung Label
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; If bolPostActiveMonth = True Then Me.Controls(strLabel).ForeColor = &amp;H808080    ' Wenn Datum ausserhalb Betrachtungszeitraum Schriftfarbe auf Grau setzen
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; datActiveDate = DateSerial(dYear, dMonth, intCounter)
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; If datActiveDate = Date Then                                ' Falls Datum = Heute Schriftart Rot und Fett
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Me.Controls(strLabel).Font.Bold = True
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Me.Controls(strLabel).ForeColor = 255
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; End If
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; 
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; intCounter = intCounter + 1
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; ' Verarbeitung Folgemonat
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; If intCounter = intLastDayMonth + 1 Then
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; intCounter = 1              ' Reset Monatstag auf 1
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dMonth = dMonth + 1         ' Monat = Monat + 1
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; If dMonth = 13 Then         ' Falls Monat = 13, dann Jahr erhöhen und Monatsnummer auf 1 (Januar) setzen
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dMonth = 1
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; dYear = dYear + 1
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; End If
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; bolPostActiveMonth = True   ' Flag für Vearbeitung Folgemonat gesetzt.
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; End If
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; 
+</strong></div><div><strong>&nbsp; &nbsp; Next intDayCounter
+</strong></div><div><strong>&nbsp; &nbsp; 
+</strong></div><div><strong>&nbsp; &nbsp; ' Kalenderwoche pro Woche ermitteln
+</strong></div><div><strong>&nbsp; &nbsp; strKW = "lblKW" &amp; intWeekCounter
+</strong></div><div><strong>&nbsp; &nbsp; Me.Controls(strKW).Caption = fGetKW(datActiveDate)
+</strong></div><div><strong>&nbsp; &nbsp; 
+</strong></div><div><strong>&nbsp; &nbsp; intDayCounter = 1
+</strong></div><div><strong>Next intWeekCounter
+</strong></div><div><strong>
+</strong></div><div><strong>bolPostActiveMonth = False
+</strong></div><div><strong>
+</strong></div><div><strong>Exit Sub
+</strong></div><div><strong>
+</strong></div><div><strong>' Errorhandling
+</strong></div><div><strong>err_udMonthChange:
+</strong></div><div><strong>&nbsp; &nbsp; MsgBox "Error " &amp; Err.Number &amp; " (" &amp; Err.Description _
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &amp; ") in der Prozedur 'setDataLabels' in 'frmCalendar'. Kalender konnte nicht aufgebaut werden. Ausführung wird abgebrochen.", vbCritical, "Laufzeitfehler"
+</strong></div><div><strong>&nbsp; &nbsp; End
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>
+</strong></div><div><strong>'======================================================================================================================
+</strong></div><div><strong>' 8. pClearDataLabels - Raster zurücksetzen
+</strong></div><div><strong>'======================================================================================================================
+</strong></div><div><strong>Sub pClearDataLabels()
+</strong></div><div><strong>Dim myCtl
+</strong></div><div><strong>On Error GoTo err_pClearDataLabels
+</strong></div><div><strong>&nbsp; &nbsp; For Each myCtl In Me.Controls
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; If myCtl.name Like "lblk*" Then
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; myCtl.Caption = ""
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; myCtl.Font.Bold = False
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; myCtl.ForeColor = &amp;H80000012
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; End If
+</strong></div><div><strong>&nbsp; &nbsp; Next myCtl
+</strong></div><div><strong>Exit Sub
+</strong></div><div><strong>
+</strong></div><div><strong>' Errorhandling
+</strong></div><div><strong>err_pClearDataLabels:
+</strong></div><div><strong>&nbsp; &nbsp; MsgBox "Error " &amp; Err.Number &amp; " (" &amp; Err.Description _
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &amp; ") in der Prozedur 'pClearDataLabels' in 'frmCalendar'. Kalender konnte nicht zurückgesetzt werden. Ausführung wird abgebrochen.", vbCritical, "Laufzeitfehler"
+</strong></div><div><strong>&nbsp; &nbsp; End
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>
+</strong></div><div><strong>'======================================================================================================================
+</strong></div><div><strong>' 9. pReturnDate - Rückgabewert in globale Variable schreiben
+</strong></div><div><strong>'======================================================================================================================
+</strong></div><div><strong>Public Sub pReturnDate(dTag, dMonat, dJahr)
+</strong></div><div><strong>On Error GoTo err_pReturnDate
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; g_datCalendarDate = DateSerial(dJahr, dMonat, dTag)
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; Unload Me
+</strong></div><div><strong>Exit Sub
+</strong></div><div><strong>
+</strong></div><div><strong>' Errorhandling
+</strong></div><div><strong>err_pReturnDate:
+</strong></div><div><strong>&nbsp; &nbsp; MsgBox "Error " &amp; Err.Number &amp; " (" &amp; Err.Description _
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &amp; ") in der Prozedur 'pReturnDate' in 'frmCalendar'. Rückgabewert konnte nicht übergeben werden. Ausführung wird abgebrochen.", vbCritical, "Laufzeitfehler"
+</strong></div><div><strong>&nbsp; &nbsp; End
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>
+</strong></div><div><strong>'======================================================================================================================
+</strong></div><div><strong>' 10. pSetNewMonth - Raster mit neuem Monat befüllen bei Klick auf "graue" Datumsfelder
+</strong></div><div><strong>'======================================================================================================================
+</strong></div><div><strong>' Übergabeparameter:
+</strong></div><div><strong>'         intTypePrePost: 1 = Vormonat / 2 = Folgemonat
+</strong></div><div><strong>'----------------------------------------------------------------------------------------------------------------------
+</strong></div><div><strong>
+</strong></div><div><strong>Private Sub pSetNewMonth(intTypePrePost)
+</strong></div><div><strong>On Error GoTo err_pSetNewMonth
+</strong></div><div><strong>g_bolMonthChange = True         ' Automatische Refreshs unterbinden
+</strong></div><div><strong>
+</strong></div><div><strong>Call pClearDataLabels           ' Raster zurücksetzen
+</strong></div><div><strong>
+</strong></div><div><strong>' Verarbeitung
+</strong></div><div><strong>Select Case intTypePrePost
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; Case 1  'Vormonat
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; If fChangeStrToInt(cmbMonth.Text) = 1 Then          ' Falls aktueller Monat = Januar, dann Vormonat auf Dezember und Jahreswechsel vornehmen
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; txtYear.Text = txtYear.Text - 1
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Call fSetMonthText(12)
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Call setDataLabels(12, txtYear.Text)
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Else
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Call fSetMonthText(fChangeStrToInt(cmbMonth.Text) - 1)
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Call setDataLabels(fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; End If
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; Case 2  'Folgemonat
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; If fChangeStrToInt(cmbMonth.Text) = 12 Then         ' Falls aktueller Monat = Dezember, dann Folgemonat auf Januar und Jahreswechsel vornehmen
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; txtYear.Text = txtYear.Text + 1
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Call fSetMonthText(1)
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Call setDataLabels(1, txtYear.Text)
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Else
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Call fSetMonthText(fChangeStrToInt(cmbMonth.Text) + 1)
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Call setDataLabels(fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; End If
+</strong></div><div><strong>End Select
+</strong></div><div><strong>
+</strong></div><div><strong>g_bolMonthChange = False
+</strong></div><div><strong>
+</strong></div><div><strong>Exit Sub
+</strong></div><div><strong>
+</strong></div><div><strong>' Errorhandling
+</strong></div><div><strong>err_pSetNewMonth:
+</strong></div><div><strong>&nbsp; &nbsp; MsgBox "Error " &amp; Err.Number &amp; " (" &amp; Err.Description _
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &amp; ") in der Prozedur 'pSetNewMonth' in 'frmCalendar'. Monatswechsel konnte nicht verarbeitet werden. Ausführung wird abgebrochen.", vbCritical, "Laufzeitfehler"
+</strong></div><div><strong>&nbsp; &nbsp; End
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>
+</strong></div><div><strong>
+</strong></div><div><strong>'=============================================================================================================================
+</strong></div><div><strong>' 11 - 14 : Schaltflächen Monat und Jahr + und -
+</strong></div><div><strong>'=============================================================================================================================
+</strong></div><div><strong>Private Sub cmdMonthUp_Click()
+</strong></div><div><strong>&nbsp; &nbsp; If cmbMonth.ListIndex &lt; 11 Then cmbMonth.Text = cmbMonth.List(cmbMonth.ListIndex + 1)
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>
+</strong></div><div><strong>Private Sub cmdMonthDown_Click()
+</strong></div><div><strong>&nbsp; &nbsp; If cmbMonth.ListIndex &gt; 0 Then cmbMonth.Text = cmbMonth.List(cmbMonth.ListIndex - 1)
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>
+</strong></div><div><strong>Private Sub cmdYearUp_Click()
+</strong></div><div><strong>&nbsp; &nbsp; txtYear.Text = txtYear.Text + 1
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub cmdYearDown_Click()
+</strong></div><div><strong>&nbsp; &nbsp; txtYear.Text = txtYear.Text - 1
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Public Sub cmdAbort_Click()
+</strong></div><div><strong>&nbsp; &nbsp; Me.Hide
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub UserForm_QueryClose(Cancel As Integer, CloseMode As Integer)
+</strong></div><div><strong>If CloseMode = 0 Then
+</strong></div><div><strong>&nbsp; &nbsp; Cancel = 1
+</strong></div><div><strong>&nbsp; &nbsp; Me.Hide
+</strong></div><div><strong>End If
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>
+</strong></div><div><strong>
+</strong></div><div><strong>'======================================================================================================================
+</strong></div><div><strong>' 15 - 56 : Click-Events auf Labels
+</strong></div><div><strong>'======================================================================================================================
+</strong></div><div><strong>' Anmerkungen:
+</strong></div><div><strong>'       Woche 1:            Prüfung, ob Tag ausgegraut ist (Vormonat), wenn ja, Aufruf zum Setzen des Vormonats
+</strong></div><div><strong>'       Wochen 5 und 6:     Prüfung, ob Tag ausgegraut ist (Folgemonat), wenn ja, Aufruf zum Setzen des Folgemonats
+</strong></div><div><strong>'----------------------------------------------------------------------------------------------------------------------
+</strong></div><div><strong>
+</strong></div><div><strong>' Woche 1
+</strong></div><div><strong>Private Sub lblk1d1_Click()
+</strong></div><div><strong>If lblk1d1.ForeColor = &amp;H808080 And lblk1d1.Caption &gt; 10 Then
+</strong></div><div><strong>&nbsp; &nbsp; Call pSetNewMonth(1)
+</strong></div><div><strong>Else
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk1d1.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End If
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk1d2_Click()
+</strong></div><div><strong>If lblk1d2.ForeColor = &amp;H808080 And lblk1d2.Caption &gt; 10 Then
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp;Call pSetNewMonth(1)
+</strong></div><div><strong>Else
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk1d2.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End If
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk1d3_Click()
+</strong></div><div><strong>If lblk1d3.ForeColor = &amp;H808080 And lblk1d3.Caption &gt; 10 Then
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; Call pSetNewMonth(1)
+</strong></div><div><strong>Else
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk1d3.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End If
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk1d4_Click()
+</strong></div><div><strong>If lblk1d4.ForeColor = &amp;H808080 And lblk1d3.Caption &gt; 10 Then
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; Call pSetNewMonth(1)
+</strong></div><div><strong>Else
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk1d4.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End If
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk1d5_Click()
+</strong></div><div><strong>If lblk1d5.ForeColor = &amp;H808080 And lblk1d5.Caption &gt; 10 Then
+</strong></div><div><strong>&nbsp; &nbsp; Call pSetNewMonth(1)
+</strong></div><div><strong>Else
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk1d5.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End If
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk1d6_Click()
+</strong></div><div><strong>If lblk1d6.ForeColor = &amp;H808080 And lblk1d6.Caption &gt; 10 Then
+</strong></div><div><strong>&nbsp; &nbsp; Call pSetNewMonth(1)
+</strong></div><div><strong>Else
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk1d6.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End If
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk1d7_Click()
+</strong></div><div><strong>If lblk1d7.ForeColor = &amp;H808080 And lblk1d7.Caption &gt; 10 Then
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp;Call pSetNewMonth(1)
+</strong></div><div><strong>Else
+</strong></div><div><strong>&nbsp; &nbsp;Call pReturnDate(lblk1d7.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End If
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk2d1_Click()
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk2d1.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk2d2_Click()
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk2d2.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk2d3_Click()
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk2d3.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk2d4_Click()
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk2d4.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk2d5_Click()
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk2d5.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk2d6_Click()
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk2d6.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk2d7_Click()
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk2d7.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk3d1_Click()
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk3d1.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk3d2_Click()
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk3d2.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk3d3_Click()
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk3d3.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk3d4_Click()
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk3d4.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk3d5_Click()
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk3d5.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk3d6_Click()
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk3d6.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk3d7_Click()
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk3d7.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk4d1_Click()
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk4d1.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk4d2_Click()
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk4d2.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk4d3_Click()
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk4d3.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk4d4_Click()
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk4d4.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk4d5_Click()
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk4d5.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk4d6_Click()
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk4d6.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk4d7_Click()
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk4d7.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>
+</strong></div><div><strong>'=======================================================================
+</strong></div><div><strong>' Woche 5
+</strong></div><div><strong>Private Sub lblk5d1_Click()
+</strong></div><div><strong>If lblk5d2.Caption &lt; 15 Then        'lblk5d1.ForeColor = &amp;H808080
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; Call pSetNewMonth(2)
+</strong></div><div><strong>Else
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk5d1.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End If
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk5d2_Click()
+</strong></div><div><strong>If lblk5d2.Caption &lt; 15 Then
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Call pSetNewMonth(2)
+</strong></div><div><strong>Else
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk5d2.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End If
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk5d3_Click()
+</strong></div><div><strong>If lblk5d3.Caption &lt; 15 Then
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; Call pSetNewMonth(2)
+</strong></div><div><strong>Else
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk5d3.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End If
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk5d4_Click()
+</strong></div><div><strong>If lblk5d4.Caption &lt; 15 Then
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Call pSetNewMonth(2)
+</strong></div><div><strong>Else
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk5d4.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End If
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk5d5_Click()
+</strong></div><div><strong>If lblk5d5.Caption &lt; 15 Then
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; Call pSetNewMonth(2)
+</strong></div><div><strong>Else
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk5d5.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End If
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk5d6_Click()
+</strong></div><div><strong>If lblk5d6.Caption &lt; 15 Then
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Call pSetNewMonth(2)
+</strong></div><div><strong>Else
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk5d6.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End If
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk5d7_Click()
+</strong></div><div><strong>If lblk5d7.Caption &lt; 15 Then
+</strong></div><div><strong>&nbsp;Call pSetNewMonth(2)
+</strong></div><div><strong>Else
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk5d7.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End If
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>'=================================================================================
+</strong></div><div><strong>'Woche 6
+</strong></div><div><strong>Private Sub lblk6d1_Click()
+</strong></div><div><strong>If lblk6d1.Caption &lt; 15 Then
+</strong></div><div><strong>&nbsp;Call pSetNewMonth(2)
+</strong></div><div><strong>Else
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk6d1.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>End If
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk6d2_Click()
+</strong></div><div><strong>If lblk6d2.Caption &lt; 15 Then
+</strong></div><div><strong>&nbsp;Call pSetNewMonth(2)
+</strong></div><div><strong>Else
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk6d2.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>&nbsp; End If
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk6d3_Click()
+</strong></div><div><strong>If lblk6d3.Caption &lt; 15 Then
+</strong></div><div><strong>&nbsp;Call pSetNewMonth(2)
+</strong></div><div><strong>Else
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk6d3.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>&nbsp; End If
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk6d4_Click()
+</strong></div><div><strong>If lblk6d4.Caption &lt; 15 Then
+</strong></div><div><strong>&nbsp;Call pSetNewMonth(2)
+</strong></div><div><strong>Else
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk6d4.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>&nbsp; End If
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk6d5_Click()
+</strong></div><div><strong>If lblk6d5.Caption &lt; 15 Then
+</strong></div><div><strong>&nbsp;Call pSetNewMonth(2)
+</strong></div><div><strong>Else
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk6d5.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>&nbsp; End If
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk6d6_Click()
+</strong></div><div><strong>If lblk6d6.Caption &lt; 15 Then
+</strong></div><div><strong>&nbsp;Call pSetNewMonth(2)
+</strong></div><div><strong>Else
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk6d6.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>&nbsp; End If
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>Private Sub lblk6d7_Click()
+</strong></div><div><strong>If lblk6d7.Caption &lt; 15 Then
+</strong></div><div><strong>&nbsp;Call pSetNewMonth(2)
+</strong></div><div><strong>Else
+</strong></div><div><strong>&nbsp; Call pReturnDate(lblk6d7.Caption, fChangeStrToInt(cmbMonth.Text), txtYear.Text)
+</strong></div><div><strong>&nbsp; End If
+</strong></div><div><strong>End Sub
+</strong></div><div><strong>
+</strong></div><div><strong>Private Sub UserForm_Terminate()
+</strong></div><div><strong>&nbsp; &nbsp; If g_datCalendarDate = "00:00:00" Then End
+</strong></div><div><strong>End Sub
+</strong></div><div><strong><br></strong></div><div><strong><br></strong></div><div><strong><br></strong></div><div><strong><br></strong></div><div><strong><br></strong></div><div><strong><br></strong></div><div><strong><br></strong></div><div><strong><br></strong></div><div><strong><br></strong></div><div><strong><br></strong></div><div><strong><br></strong></div><div><strong><br></strong></div><div><strong><br></strong></div><div><strong><br></strong></div><div><strong><br></strong></div><div><strong><br></strong></div><div><strong>'#########################################</strong></div><div><strong>Option Explicit
+</strong></div><div><strong>
+</strong></div><div><strong>'=============================================================================================================================
+</strong></div><div><strong>' Name:     Kalender-Formular
+</strong></div><div><strong>' Zweck:    Alternative zum Kalender-Steuerelement "Calendar Control 2007" aus MSCOMCTL.OCX, da unter Office 2010 x64 nicht mehr per default unterstützt
+</strong></div><div><strong>' Author:   Edgar Frei, clearByte GmbH
+</strong></div><div><strong>' Datum:    24.09.2011
+</strong></div><div><strong>' Version:  1.0
+</strong></div><div><strong>' Lizenz:   Zur freien Verwendung. Dieser Header muss belassen werden. Über Feedback freue ich mich: edgar.frei@clearbyte.ch
+</strong></div><div><strong>'=============================================================================================================================
+</strong></div><div><strong>' Informationen zur Verwendung:
+</strong></div><div><strong>'   Das Formular besteht aus dem Modul "modFunctions" und der UserForm "frmCalendar" und kommt gänzlich ohne DLLs und OCXs aus.
+</strong></div><div><strong>'   Um ein Datum auszuwählen, muss lediglich das Formular aufgerufen werden. Nach Auswahl eines Datums wird das gewählte
+</strong></div><div><strong>'   Datum in eine globale Variable (g_datCalendarDate) geschrieben, welche abgefragt werden kann.
+</strong></div><div><strong>'=============================================================================================================================
+</strong></div><div><strong>' Implementation:
+</strong></div><div><strong>'   1. Import Modul 'modFunctions'
+</strong></div><div><strong>'   2. Import UserForm 'modCalendar'
+</strong></div><div><strong>'   3. Aufruf via:      frmCalendar.Show
+</strong></div><div><strong>'   4. Rückgabewert:    g_datCalendarDate
+</strong></div><div><strong>'=============================================================================================================================
+</strong></div><div><strong>
+</strong></div><div><strong>
+</strong></div><div><strong>' Public Variables
+</strong></div><div><strong>Public g_datCalendarDate As Date
+</strong></div><div><strong>Public g_bolInitialize As Boolean
+</strong></div><div><strong>Public g_bolMonthChange As Boolean
+</strong></div><div><strong>
+</strong></div><div><strong>'=============================================================================================================================
+</strong></div><div><strong>' Index
+</strong></div><div><strong>'-----------------------------------------------------------------------------------------------------------------------------
+</strong></div><div><strong>' 1. fPlaus - Plausibilitätsprüfungen
+</strong></div><div><strong>' 2. fSetMonthText - Umwandlung Ganzzahl zu Monatsname
+</strong></div><div><strong>' 3. fChangeStrToInt - Umwandlung Monatsname zu Ganzzahl
+</strong></div><div><strong>' 4. fGetKW - Berechnung Kalenderwoche pro Datum
+</strong></div><div><strong>' 5. fLastDayInMonth - Suche des letzten Tages eines Monats
+</strong></div><div><strong>
+</strong></div><div><strong>
+</strong></div><div><strong>'=============================================================================================================================
+</strong></div><div><strong>'Functions
+</strong></div><div><strong>'=============================================================================================================================
+</strong></div><div><strong>' 1. fPlaus - Plausibilitätsprüfungen
+</strong></div><div><strong>'-----------------------------------------------------------------------------------------------------------------------------
+</strong></div><div><strong>' Eingabeparameter:
+</strong></div><div><strong>'        strPlaus               -   String - Monatsname
+</strong></div><div><strong>'        intPlausType       -  Integer - Plausibilitätstyp (Mehrere Plausibilitätsprüfungen via unterschiedlichen Codes (intPlausType). Gegenwärtig nur Typ 1 (Manuelle Eingabe Monatsname) implementiert).
+</strong></div><div><strong>'-----------------------------------------------------------------------------------------------------------------------------
+</strong></div><div><strong>Function fPlaus(strPlaus, intPlausType) As Boolean
+</strong></div><div><strong>On Error GoTo err_fPlaus
+</strong></div><div><strong>&nbsp; &nbsp;With frmCalendar
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; Select Case intPlausType
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Case 1 'Monatsplaus
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; If .cmbMonth.Text = "Januar" Or _
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .cmbMonth.Text = "Februar" Or _
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .cmbMonth.Text = "März" Or _
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .cmbMonth.Text = "April" Or _
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .cmbMonth.Text = "Mai" Or _
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .cmbMonth.Text = "Juni" Or _
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .cmbMonth.Text = "Juli" Or _
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .cmbMonth.Text = "August" Or _
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .cmbMonth.Text = "September" Or _
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .cmbMonth.Text = "Oktober" Or _
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .cmbMonth.Text = "November" Or _
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .cmbMonth.Text = "Dezember" Then
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fPlaus = True
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; End If
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; End Select
+</strong></div><div><strong>&nbsp; &nbsp; End With
+</strong></div><div><strong>Exit Function
+</strong></div><div><strong>
+</strong></div><div><strong>' Errorhandling
+</strong></div><div><strong>err_fPlaus:
+</strong></div><div><strong>&nbsp; &nbsp; MsgBox "Error " &amp; Err.Number &amp; " (" &amp; Err.Description _
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &amp; ") in der Prozedur 'fPlaus' in 'modFunctions'. Plausibilitätsprüfung konnte nicht vollzogen werden. Ausführung wird abgebrochen.", vbCritical, "Laufzeitfehler"
+</strong></div><div><strong>&nbsp; &nbsp; End
+</strong></div><div><strong>End Function
+</strong></div><div><strong>'=============================================================================================================================
+</strong></div><div><strong>' 2. fSetMonthText - Umwandlung Ganzzahl zu Monatsname
+</strong></div><div><strong>' Eingabeparameter:
+</strong></div><div><strong>'        varMonth -   Integer - Monatsnummer
+</strong></div><div><strong>'-----------------------------------------------------------------------------------------------------------------------------
+</strong></div><div><strong>Function fSetMonthText(varMonth)
+</strong></div><div><strong>On Error GoTo err_fSetMonthText
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; With frmCalendar
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; 
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Select Case varMonth
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Case 1
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .cmbMonth.Text = "Januar"
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Case 2
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .cmbMonth.Text = "Februar"
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Case 3
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .cmbMonth.Text = "März"
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Case 4
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .cmbMonth.Text = "April"
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Case 5
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .cmbMonth.Text = "Mai"
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Case 6
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .cmbMonth.Text = "Juni"
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Case 7
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .cmbMonth.Text = "Juli"
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Case 8
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .cmbMonth.Text = "August"
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Case 9
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .cmbMonth.Text = "September"
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Case 10
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .cmbMonth.Text = "Oktober"
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Case 11
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .cmbMonth.Text = "November"
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Case 12
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; .cmbMonth.Text = "Dezember"
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; End Select
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; End With
+</strong></div><div><strong>Exit Function
+</strong></div><div><strong>
+</strong></div><div><strong>' Errorhandling
+</strong></div><div><strong>err_fSetMonthText:
+</strong></div><div><strong>&nbsp; &nbsp; MsgBox "Error " &amp; Err.Number &amp; " (" &amp; Err.Description _
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &amp; ") in der Prozedur 'fSetMonthText' in 'modFunctions'. Umwandlung Monatsname zu Monatsnummer konnte nicht verarbeitet werden.. Ausführung wird abgebrochen.", vbCritical, "Laufzeitfehler"
+</strong></div><div><strong>&nbsp; &nbsp; End
+</strong></div><div><strong>End Function
+</strong></div><div><strong>
+</strong></div><div><strong>'=============================================================================================================================
+</strong></div><div><strong>' 3. fChangeStrToInt - Umwandlung Monatsname zu Ganzzahl
+</strong></div><div><strong>' Eingabeparameter:
+</strong></div><div><strong>'        varMonth -   String -  Monatsname
+</strong></div><div><strong>'--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+</strong></div><div><strong>Function fChangeStrToInt(varMonth)
+</strong></div><div><strong>&nbsp; &nbsp; Select Case varMonth
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Case "Januar"
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fChangeStrToInt = 1
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Case "Februar"
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fChangeStrToInt = 2
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Case "März"
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fChangeStrToInt = 3
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Case "April"
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fChangeStrToInt = 4
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Case "Mai"
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fChangeStrToInt = 5
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Case "Juni"
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fChangeStrToInt = 6
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Case "Juli"
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fChangeStrToInt = 7
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Case "August"
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fChangeStrToInt = 8
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Case "September"
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fChangeStrToInt = 9
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Case "Oktober"
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fChangeStrToInt = 10
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Case "November"
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fChangeStrToInt = 11
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Case "Dezember"
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; fChangeStrToInt = 12
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; End Select
+</strong></div><div><strong>Exit Function
+</strong></div><div><strong>
+</strong></div><div><strong>' Errorhandling
+</strong></div><div><strong>err_fChangeStrToInt:
+</strong></div><div><strong>&nbsp; &nbsp; MsgBox "Error " &amp; Err.Number &amp; " (" &amp; Err.Description _
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &amp; ") in der Prozedur 'fChangeStrToInt' in 'modFunctions'. Umwandlung Monatsnummer zu Monatsname konnte nicht verarbeitet werden. Ausführung wird abgebrochen.", vbCritical, "Laufzeitfehler"
+</strong></div><div><strong>&nbsp; &nbsp; End
+</strong></div><div><strong>End Function
+</strong></div><div><strong>
+</strong></div><div><strong>
+</strong></div><div><strong>'=============================================================================================================================
+</strong></div><div><strong>' 4. fGetKW - Berechnung Kalenderwoche pro Datum
+</strong></div><div><strong>' Eingabeparameter:
+</strong></div><div><strong>'        d -   Datum
+</strong></div><div><strong>'-----------------------------------------------------------------------------------------------------------------------------
+</strong></div><div><strong>Function fGetKW(datKW As Date) As Integer
+</strong></div><div><strong>Dim datTemp As Date
+</strong></div><div><strong>On Error GoTo err_fGetKW
+</strong></div><div><strong>&nbsp; &nbsp; datTemp = DateSerial(Year(datKW + (8 - Weekday(datKW)) Mod 7 - 3), 1, 1)
+</strong></div><div><strong>&nbsp; &nbsp; fGetKW = (datKW - datTemp - 3 + (Weekday(datTemp) + 1) Mod 7) \ 7 + 1
+</strong></div><div><strong>Exit Function
+</strong></div><div><strong>
+</strong></div><div><strong>' Errorhandling
+</strong></div><div><strong>err_fGetKW:
+</strong></div><div><strong>&nbsp; &nbsp; MsgBox "Error " &amp; Err.Number &amp; " (" &amp; Err.Description _
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &amp; ") in der Prozedur 'fGetKW' in 'modFunctions'. Ermittlung Kalenderwoche fehlgeschlagen. Ausführung wird abgebrochen.", vbCritical, "Laufzeitfehler"
+</strong></div><div><strong>&nbsp; &nbsp; End
+</strong></div><div><strong>End Function
+</strong></div><div><strong>
+</strong></div><div><strong>
+</strong></div><div><strong>'=============================================================================================================================
+</strong></div><div><strong>' 5. fLastDayInMonth - Suche des letzten Tages eines Monats
+</strong></div><div><strong>' Eingabeparameter:
+</strong></div><div><strong>'        dtmDate -   Datum - Optional (wenn leer dtmDate = Heute)
+</strong></div><div><strong>'-----------------------------------------------------------------------------------------------------------------------------
+</strong></div><div><strong>Function fLastDayInMonth(Optional dtmDate As Date = 0) As Date
+</strong></div><div><strong>On Error GoTo err_fLastDayInMonth
+</strong></div><div><strong>&nbsp; &nbsp; If dtmDate = 0 Then
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; dtmDate = Date
+</strong></div><div><strong>&nbsp; &nbsp; End If
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp;fLastDayInMonth = DateSerial(Year(dtmDate), _
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp;Month(dtmDate) + 1, 0)
+</strong></div><div><strong>Exit Function
+</strong></div><div><strong>
+</strong></div><div><strong>' Errorhandling
+</strong></div><div><strong>err_fLastDayInMonth:
+</strong></div><div><strong>&nbsp; &nbsp; MsgBox "Error " &amp; Err.Number &amp; " (" &amp; Err.Description _
+</strong></div><div><strong>&nbsp; &nbsp; &nbsp; &nbsp; &amp; ") in der Prozedur 'fLastDayInMonth' in 'modFunctions'. Ermittlung letzter Tag des Monats fehlgeschlagen. Ausführung wird abgebrochen.", vbCritical, "Laufzeitfehler"
+</strong></div><div><strong>&nbsp; &nbsp; End
+</strong></div><div><strong>End Function
+</strong></div><div><strong>
+</strong></div><div><strong><br></strong></div><div><strong><br></strong></div><div><strong><br></strong></div><div><strong><br></strong></div></div>
+        </div>
+    </div>
+</section>
+
+
+  <script src="assets/web/assets/jquery/jquery.min.js"></script>
+  <script src="assets/popper/popper.min.js"></script>
+  <script src="assets/tether/tether.min.js"></script>
+  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/smoothscroll/smooth-scroll.js"></script>
+  <script src="assets/parallax/jarallax.min.js"></script>
+  <script src="assets/theme/js/script.js"></script>
+  
+  
+</body>
+</html>

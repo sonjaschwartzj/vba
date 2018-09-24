@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <!-- Site made with Mobirise Website Builder v4.8.2, https://mobirise.com -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Mobirise v4.8.2, mobirise.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <link rel="shortcut icon" href="assets/images/logo4.png" type="image/x-icon">
+  <meta name="description" content="Website Creator Description">
+  <title>Email senden</title>
+  <link rel="stylesheet" href="assets/web/assets/mobirise-icons/mobirise-icons.css">
+  <link rel="stylesheet" href="assets/tether/tether.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
+  <link rel="stylesheet" href="assets/theme/css/style.css">
+  <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+  
+  
+  
+</head>
+<body>
+  <section class="header1 cid-r4yYFtavkQ mbr-parallax-background" id="header1-q">
+
+    
+
+    
+
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="mbr-white col-md-10">
+                <h1 class="mbr-section-title align-center mbr-bold pb-3 mbr-fonts-style display-1">VBA Code<br></h1>
+                <h3 class="mbr-section-subtitle align-center mbr-light pb-3 mbr-fonts-style display-2">Emails Versenden</h3>
+                <p class="mbr-text align-center pb-3 mbr-fonts-style display-5">&nbsp;versenden</p>
+                <div class="mbr-section-btn align-center"><a class="btn btn-md btn-primary display-4" href="http://index.html"><span class="mbri-github mbr-iconfont mbr-iconfont-btn"></span></a></div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section class="engine"><a href="https://mobiri.se/g">how to build your own website</a></section><section class="mbr-section article content1 cid-r4yYFtWpC1" id="content1-r">
+    
+     
+
+    <div class="container">
+        <div class="media-container-row">
+            <div class="mbr-text col-12 col-md-8 mbr-fonts-style display-7">Option Explicit
+<div>
+</div><div>Private Sub cmdStart_Click()
+</div><div>Dim i As Long
+</div><div>Dim ZNR As Variant
+</div><div>
+</div><div>Dim SDurchlauf As Long
+</div><div>Dim SEinzelMail As String 'n.B
+</div><div>Dim strAbsender As String
+</div><div>Dim intAbsender As String
+</div><div>Dim strAnsprechpartner As String
+</div><div>Dim strKDName As String
+</div><div>Dim strNachName As String
+</div><div>&nbsp; &nbsp; &nbsp; 
+</div><div>&nbsp; &nbsp; &nbsp; '###############Absender Mail Festlegen###############
+</div><div>intAbsender = 1
+</div><div>&nbsp; &nbsp; &nbsp; '################Empfänger Nr Festlegen###############
+</div><div>ZNR = tblEinstellungen.Cells(1, 5)
+</div><div>If ZNR = "" Then
+</div><div>ZNR = 2
+</div><div>Else
+</div><div>ZNR = tblEinstellungen.Cells(1, 5)
+</div><div>End If
+</div><div>
+</div><div>&nbsp; &nbsp; &nbsp;'####################Menge Mails Festlegen############
+</div><div>i = cboMenge
+</div><div>
+</div><div>
+</div><div>' ###################-------Email Schleife--------#########
+</div><div>&nbsp; &nbsp; For SDurchlauf = i * 10 + ZNR To ZNR Step -1
+</div><div>&nbsp; &nbsp; 
+</div><div>'###############Absender festlegen###################
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; 
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; If intAbsender = 1 Then
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strAbsender = "Steven"
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strNachName = "Malak"
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ElseIf intAbsender = 2 Then
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strAbsender = "Marc"
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strNachName = "Schmitt"
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; 
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ElseIf intAbsender = 3 Then
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strAbsender = "Steven"
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strNachName = "Shafik"
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; 
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ElseIf intAbsender = 4 Then
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strAbsender = "Marco"
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strNachName = "Molnar"
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ElseIf intAbsender = 5 Then
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strAbsender = "Mark"
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strNachName = "Müller"
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ElseIf intAbsender = 6 Then
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strAbsender = "Hannelore"
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strNachName = "Müller"
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; 
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ElseIf intAbsender = 7 Then
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strAbsender = "Roland"
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strNachName = "Friedrich"
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; 
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ElseIf intAbsender = 8 Then
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strAbsender = "Susanne"
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strNachName = "Bergmann"
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; 
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ElseIf intAbsender = 9 Then
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strAbsender = "Melanie"
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strNachName = "Kohl"
+</div><div>
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ElseIf intAbsender = 10 Then
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strAbsender = "Kurt"
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strNachName = "Bormann"
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ElseIf intAbsender &gt; 10 Then
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; intAbsender = 1
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strAbsender = "Steven"
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strNachName = "Shafik"
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; Else
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; End If
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; 
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; strAnsprechpartner = strAbsender &amp; " " &amp; strNachName
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; 
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; ZNR = ZNR + 1
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; tblEinstellungen.Cells(1, 5) = ZNR
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; strAbsender = strAbsender &amp; "@ice-software.com"
+</div><div>&nbsp; &nbsp;
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;'############Daten Für Angebot holen#################
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; tblAN.Cells(24, 1) = tblKunden.Cells(SDurchlauf, 8) &amp; ","                                  'Anrede
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; tblAN.Cells(10, 1) = tblKunden.Cells(SDurchlauf, 1)                                   'name1
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; If tblKunden.Cells(SDurchlauf, 5) = "" Then                                       'name2
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strKDName = ""                                                              'name2
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Else                                                                        'name2
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; strKDName = tblKunden.Cells(SDurchlauf, 5) &amp; " " &amp; tblKunden.Cells(SDurchlauf, 7)       'name2
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; End If                                                                      'name2
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; tblAN.Cells(11, 1) = strKDName                                                'name2
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; tblAN.Cells(12, 1) = tblKunden.Cells(SDurchlauf, 2)                                   'str
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; tblAN.Cells(13, 1) = tblKunden.Cells(SDurchlauf, 3) &amp; " " &amp; tblKunden.Cells(SDurchlauf, 4)  'ort
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; tblAN.Cells(28, 8) = strAnsprechpartner                                         'ansprechpartner
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; tblAN.Cells(28, 3) = 1000000 + SDurchlauf
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; tblAN.Cells(29, 3) = tblKunden.Cells(SDurchlauf, 9)
+</div><div>&nbsp; &nbsp; &nbsp; 
+</div><div>&nbsp; &nbsp;'###############Mail Schreiben############################
+</div><div>&nbsp; &nbsp;
+</div><div>&nbsp; &nbsp;
+</div><div>&nbsp; &nbsp;
+</div><div>&nbsp; &nbsp;
+</div><div>&nbsp; &nbsp;
+</div><div>&nbsp; &nbsp;
+</div><div>
+</div><div>
+</div><div>&nbsp; &nbsp;
+</div><div>&nbsp; &nbsp;
+</div><div>&nbsp; &nbsp;
+</div><div>&nbsp; &nbsp;
+</div><div>&nbsp; &nbsp;'PDF
+</div><div>Dim pdfjob As Object
+</div><div>Dim sPDFName As String
+</div><div>Dim sPDFPath As String
+</div><div>Dim sPDFName2 As String
+</div><div>Dim sPDFPath2 As String
+</div><div>Dim EText As String
+</div><div>&nbsp; &nbsp; 'EMail
+</div><div>&nbsp; &nbsp; Dim MyMessage As Object, MyOutApp As Object
+</div><div>&nbsp; &nbsp; Dim Qe As Integer
+</div><div>&nbsp; &nbsp; Dim AWS As String
+</div><div>&nbsp; &nbsp; Dim AWS2 As String
+</div><div>&nbsp; &nbsp; Dim strEmail As String
+</div><div>&nbsp; &nbsp; Dim strBesteller As String
+</div><div>&nbsp; &nbsp; Dim AnHang As String
+</div><div>&nbsp; &nbsp; 
+</div><div>
+</div><div>tblAN.Select
+</div><div>sPDFName = "Angebot Nr " &amp; tblAN.Cells(28, 3)
+</div><div>sPDFPath = ActiveWorkbook.Path &amp; "\Angebote\"
+</div><div>
+</div><div>
+</div><div>ActiveSheet.ExportAsFixedFormat Type:=xlTypePDF, Filename:= _
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; sPDFPath &amp; sPDFName, Quality:=xlQualityStandard, _
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; IncludeDocProperties:=True, IgnorePrintAreas:=False, OpenAfterPublish:= _
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; False
+</div><div>
+</div><div>
+</div><div>
+</div><div>
+</div><div>
+</div><div>
+</div><div>EText = tblAN.Cells(24, 1) &amp; vbCr &amp; vbCr &amp; "standen Sie jemals vor dem Problem, dass einer Ihrer " &amp; _
+</div><div>"Mitarbeiter aus Ihrem Unternehmen ausschied und ein qualifiziertes Arbeitszeugnis verlangte, Sie " &amp; _
+</div><div>"jedoch nicht wussten wie Sie ein solches Zeugnis rechtssicher, qualifiziert, fair und schnell schreiben konnten." &amp; _
+</div><div>vbCr &amp; vbCr &amp; "Diese Angst und diese Anstrengungen kann Ihnen ab sofort die ICE Zeugnissoftware abnehmen." &amp; _
+</div><div>vbCr &amp; "Fehlerfrei, schnell und rechtssicher können Sie mit unserem neusten Programm ein qualifiziertes Arbeitszeugnis nach Ihren" &amp; _
+</div><div>" Wünschen binnen weniger Minuten erstellen. " &amp; vbCr &amp; "Unser Team hat in monatelanger Arbeit eine Software entwickelt die für jeden " &amp; _
+</div><div>"Ihrer Mitarbeiter ein qualifiziertes und individuell zugeschnittenes Zeugnis erstellt." &amp; vbCr &amp; vbCr &amp; "Alle weiteren Informationen, " &amp; _
+</div><div>"sowie den Link zur Produktvorstellung auf Youtube können Sie aus Ihrem individuellen Angebot als auch der detaillierten Produktbeschreibung entnehmen." &amp; _
+</div><div>vbCr &amp; vbCr &amp; "Für eventuelle Rückfragen stehen wir gerne zu Ihrer Verfügung." &amp; vbCr &amp; vbCr &amp; _
+</div><div>"Mit freundlichen Grüßen" &amp; vbCrLf &amp; vbCr &amp; vbCr &amp; "i.A. " &amp; strAnsprechpartner
+</div><div>
+</div><div>
+</div><div>
+</div><div>
+</div><div>
+</div><div>
+</div><div>AnHang = "_______________________________________________________________________________" &amp; vbCrLf &amp; _
+</div><div>"ICE Software" &amp; vbCrLf &amp; "The Cool way of Software, Port Ghaleb, Marsa Alam, Egypt Red Sea" &amp; vbCrLf &amp; _
+</div><div>"E-mail: mailto: info@ice-software.com, Homepage: www.ice-software.com" &amp; vbCrLf &amp; _
+</div><div>"CEO: Samah Malak Dirias Shafik," &amp; vbCrLf &amp; _
+</div><div>"====================================================" &amp; vbCrLf &amp; _
+</div><div>"This e-mail contains information which is confidential and is" &amp; vbCrLf &amp; _
+</div><div>"intended for the use of the recipient." &amp; vbCrLf &amp; _
+</div><div>"Although this email and attachments are believed to be free" &amp; vbCrLf &amp; _
+</div><div>"of defects, it is the responsibility of the" &amp; vbCrLf &amp; _
+</div><div>"recipient to ensure that they are." &amp; vbCrLf &amp; _
+</div><div>"The information given in this email is the opinion of the sender." &amp; vbCrLf &amp; _
+</div><div>"===================================================="
+</div><div>
+</div><div>
+</div><div>strEmail = tblAN.Cells(29, 3)
+</div><div>
+</div><div>&nbsp; &nbsp; AWS = sPDFPath &amp; sPDFName &amp; ".pdf"
+</div><div>&nbsp; &nbsp; AWS2 = ActiveWorkbook.Path &amp; "\InformationsblattZeugnis" &amp; ".pdf"
+</div><div>&nbsp; &nbsp; 'Outlook Object erstellen
+</div><div>&nbsp; &nbsp; Set MyOutApp = CreateObject("Outlook.Application")
+</div><div>&nbsp; &nbsp; 'Outlook Nachricht erstellen
+</div><div>&nbsp; &nbsp; Set MyMessage = MyOutApp.CreateItem(0)
+</div><div>&nbsp; &nbsp; With MyMessage
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; 'Empfänger
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; 'SendUsingAccount
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; Set .SendUsingAccount = .Session.Accounts.Item(intAbsender) '.SentOnBehalfOfName = strAbsender
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; .to = strEmail
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; 'Betreff
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; .Subject = "Stets zur Vollsten Zufriedenheit - Die Zeugnissoftware"
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; .attachments.Add AWS
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; .attachments.Add AWS2
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; .Body = EText &amp; vbCr &amp; vbCr &amp; AnHang
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; '.Display
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; .Send
+</div><div>&nbsp; &nbsp; End With
+</div><div>&nbsp; &nbsp; Set MyOutApp = Nothing
+</div><div>&nbsp; &nbsp; Set MyMessage = Nothing
+</div><div>
+</div><div>&nbsp; &nbsp;
+</div><div>&nbsp; &nbsp;
+</div><div>&nbsp; &nbsp;
+</div><div>&nbsp; &nbsp;intAbsender = intAbsender + 1
+</div><div>&nbsp; &nbsp;
+</div><div>&nbsp; &nbsp; &nbsp; '##############Daten aus Angebot Loeschen#################
+</div><div>&nbsp; &nbsp;
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; tblAN.Cells(24, 1) = ""                                   'Anrede
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; tblAN.Cells(10, 1) = ""                                   'name1
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; tblAN.Cells(11, 1) = ""                                   'name2
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; tblAN.Cells(12, 1) = ""                                   'str
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; tblAN.Cells(13, 1) = ""                                   'ort
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; tblAN.Cells(28, 8) = ""                                   'ansprechpartner
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; tblAN.Cells(29, 3) = ""                                   'Email
+</div><div>&nbsp; &nbsp; &nbsp; &nbsp; tblAN.Cells(28, 3) = ""                                   'Angebotsnummer
+</div><div>&nbsp; &nbsp;Next
+</div><div>&nbsp; &nbsp;MsgBox "End"
+</div><div>End Sub
+</div><div>
+</div><div>Private Sub cmdEnd_Click()
+</div><div>End
+</div><div>End Sub
+</div><div>
+</div><div>
+</div><div>
+</div><div>
+</div><div>
+</div><div>Private Sub UserForm_Initialize()
+</div><div>
+</div><div>With cboMenge
+</div><div>&nbsp; &nbsp; .AddItem 10
+</div><div>&nbsp; &nbsp; .AddItem 20
+</div><div>&nbsp; &nbsp; .AddItem 50
+</div><div>&nbsp; &nbsp; .AddItem 100
+</div><div>&nbsp; &nbsp; .AddItem 200
+</div><div>End With
+</div><div>
+</div><div>End Sub
+</div><div><br></div></div>
+        </div>
+    </div>
+</section>
+
+
+  <script src="assets/web/assets/jquery/jquery.min.js"></script>
+  <script src="assets/popper/popper.min.js"></script>
+  <script src="assets/tether/tether.min.js"></script>
+  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/smoothscroll/smooth-scroll.js"></script>
+  <script src="assets/parallax/jarallax.min.js"></script>
+  <script src="assets/theme/js/script.js"></script>
+  
+  
+</body>
+</html>
